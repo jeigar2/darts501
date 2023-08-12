@@ -1,0 +1,26 @@
+.activo {
+    color: #0CA342;
+}
+
+.inactivo {
+    color: #5B4F3F;
+}
+
+path,
+circle,
+text {
+    stroke: white;
+    stroke-width: 2;
+    opacity: 0.5;
+}
+
+path:hover,
+circle:hover,
+text:hover {
+    opacity: 0.8;
+    fill: rgb(109, 1, 1);
+}
+
+#diana {
+    width: 45%;
+}
