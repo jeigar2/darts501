@@ -1,0 +1,56 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Darts 501</title>
+  <style>
+   body {
+    margin: 0;
+    overflow: hidden;
+    display: flex; /* Use flexbox to arrange iframe and rules */
+   }
+   iframe {
+    width: 250vw; /* Adjust as needed */
+    height: 100vh;
+    border: none;
+   }
+   #rules {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30vw; /* Adjust as needed */
+    height: 100vh;
+    background-color: rgba(240, 240, 240, 0.5); /* Semi-transparent background */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width/height */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+   }
+  </style>
+ </head>
+ <body>
+  <iframe src="darts501.html"></iframe>
+  <div id="rules">
+   <h2>Darts 501 Rules</h2>
+   <p>The game is played with two players or teams.</p>
+   <p>Each player/team starts with a score of 501.</p>
+   <p>Players take turns throwing three darts.</p>
+   <p>The score for each round is subtracted from the player's/team's total.</p>
+   <p>The goal is to be the first to reduce the score to exactly 0.</p>
+   <p>The final dart must be a double or the bullseye to win (double out).</p>
+   <p>If a player/team scores more than the remaining points, or reduces the score to 1, the score for that round is invalid, and the score reverts to what it was at the start of that round (bust).</p>
+   <!-- Add more rules as needed -->
+    <hr>
+    <h2>Reglas de Dardos 501</h2>
+    <p>El juego se juega con dos jugadores o equipos.</p>
+    <p>Cada jugador/equipo comienza con una puntuación de 501.</p>
+    <p>Los jugadores se turnan para lanzar tres dardos.</p>
+    <p>El puntaje para cada ronda se resta del total del jugador/equipo.</p>
+    <p>El objetivo es ser el primero en reducir el puntaje a exactamente 0.</p>
+    <p>El dardo final debe ser un doble o la diana para ganar (doble out).</p>
+    <p>Si un jugador/equipo anota más que los puntos restantes, o reduce el puntaje a 1, el puntaje para esa ronda no es válido, y el puntaje vuelve a lo que era al comienzo de esa ronda (busto).</p>
+  </div>
+ </body>
+ </html>

@@ -46,11 +46,12 @@ textNumbers.forEach(textNumber => {
 const board = document.getElementById('board');
 const player1ScoreDisplay = document.getElementById('player1Score');
 const player2ScoreDisplay = document.getElementById('player2Score');
-const dart1 = document.getElementById('dart1');
-const dart2 = document.getElementById('dart2');
-const dart3 = document.getElementById('dart3');
 const totalDartsDisplay = document.getElementById('totalDarts');
 let currentPlayer = 1;
+let prefix = 'player1';
+let dart1 = document.getElementById(prefix + 'dart1');
+let dart2 = document.getElementById(prefix + 'dart2');
+let dart3 = document.getElementById(prefix + 'dart3');
 let currentThrows = 0;
 let currentDart = 1;
 let totalDarts = 0;
@@ -58,6 +59,7 @@ let totalDarts = 0;
 function updateScore(player, points, fix) {
 
     if (player === 1) {
+        prefix = 'player1';
         if (fix) {
             player1Score += parseInt(points);
         } else {
@@ -67,9 +69,10 @@ function updateScore(player, points, fix) {
         }
         player1ScoreDisplay.textContent = player1Score;
         if (player1Score === 0) {
-            alert('¡Jugador 1 ha ganado!');
+            showWinMessage(player);
         }
     } else if (player === 2) {
+        prefix = 'player2';
         if (fix) {
             player2Score += parseInt(points);
         } else {
@@ -79,27 +82,48 @@ function updateScore(player, points, fix) {
         }
         player2ScoreDisplay.textContent = player2Score;
         if (player2Score === 0) {
-            alert('¡Jugador 2 ha ganado!');
+            showWinMessage(player);
         }
     }
+    dart1 = document.getElementById(prefix + 'dart1');
+    dart2 = document.getElementById(prefix + 'dart2');
+    dart3 = document.getElementById(prefix + 'dart3');
     switch (currentDart) {
         case 1:
             dart1.textContent = points;
-            dart1.style.color = "green";
-            dart3.style.color = "gray";
+            if (player === 1) {
+                dart1.style.color = 'rgba(195, 240, 196, 0.7)';
+                dart3.style.color = 'rgba(23, 53, 23, 0.7)';
+            }
+            else {
+                dart1.style.color = "rgba(235, 162, 156, 0.7)";
+                dart3.style.color = "rgba(49, 30, 30, 0.7)";
+            }
             dart3.textContent = 0;
             totalDarts = parseInt(points);
             break;
         case 2:
             dart2.textContent = points;
-            dart2.style.color = "green";
-            dart1.style.color = "gray";
+            if (player === 1) {
+                dart2.style.color = 'rgba(195, 240, 196, 0.7)';
+                dart1.style.color = 'rgba(23, 53, 23, 0.7)';
+            }
+            else {
+                dart2.style.color = "rgba(235, 162, 156, 0.7)";
+                dart1.style.color = "rgba(49, 30, 30, 0.7)";
+            }
             totalDarts += parseInt(points);
             break;
         case 3:
+            if (player === 1) {
+                dart3.style.color = 'rgba(195, 240, 196, 0.7)';
+                dart2.style.color = 'rgba(23, 53, 23, 0.7)';
+            }
+            else {
+                dart3.style.color = "rgba(235, 162, 156, 0.7)";
+                dart2.style.color = "rgba(49, 30, 30, 0.7)";
+            }
             dart3.textContent = points;
-            dart3.style.color = "green";
-            dart2.style.color = "gray";
             totalDarts += parseInt(points);
             break;
     }
@@ -122,13 +146,14 @@ function throwDart() {
         }
     }
 }
+
 function playerActive() {
     if (currentPlayer === 1) {
-        player1ScoreDisplay.style.color = "green";
-        player2ScoreDisplay.style.color = "gray";
+        player1ScoreDisplay.style.color = 'rgba(195, 240, 196, 0.7)';
+        player2ScoreDisplay.style.color = 'rgba(23, 53, 23, 0.7)';
     } else {
-        player2ScoreDisplay.style.color = "green";
-        player1ScoreDisplay.style.color = "gray";
+        player2ScoreDisplay.style.color = 'rgba(235, 162, 156, 0.7)';
+        player1ScoreDisplay.style.color = 'rgba(49, 30, 30, 0.7)';
     }
     dart1.textContent = dart2.textContent = 0;
 }
@@ -138,3 +163,75 @@ let player2Score = START_POINTS;
 player1ScoreDisplay.textContent = player1Score;
 player2ScoreDisplay.textContent = player2Score;
 playerActive();
+
+
+function showWinMessage(player) {
+    const winMessage = document.createElement('div');
+    winMessage.id = 'win-message';
+    winMessage.textContent = `¡Jugador ${player} ha ganado!`;
+    document.body.appendChild(winMessage);
+
+    // Style the win message (you can also do this in CSS)
+    winMessage.style.position = 'absolute';
+    winMessage.style.top = '50%';
+    winMessage.style.left = '50%';
+    winMessage.style.transform = 'translate(-50%, -50%)';
+    if(player === 1){ 
+        winMessage.style.backgroundColor = 'rgba(76, 175, 80, 0.7)';
+    }else{
+        winMessage.style.backgroundColor = 'rgba(244, 67, 54, 0.7)';
+    }
+    winMessage.style.color = 'white';
+    winMessage.style.padding = '20px';
+    winMessage.style.fontSize = '32px';
+    winMessage.style.borderRadius = '10px';
+    winMessage.style.zIndex = '1000'; // Ensure it's on top
+
+    // Optional: Remove the message after a few seconds
+    setTimeout(() => {
+        document.body.removeChild(winMessage);
+    }, 3000);
+}
+
+const dart = document.getElementById('dart');
+let previousX = 0;
+let previousY = 0;
+
+document.addEventListener('mousemove', (e) => {
+    const rect = dart.getBoundingClientRect();
+    const dartWidth = rect.width;
+
+    dart.style.left = e.clientX + 'px';
+    dart.style.top = e.clientY + 'px';
+
+    // Calculate the angle of movement
+    const deltaX = e.clientX - previousX;
+    const deltaY = e.clientY - previousY;
+    let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+
+    // Adjust the angle to be relative to the dart's initial orientation (pointing right)
+    angle += 180;
+
+    // Apply the rotation
+    dart.style.transform = `rotate(${angle}deg)`;
+
+    previousX = e.clientX;
+    previousY = e.clientY;
+});
+
+/*document.addEventListener('click', (e) => {
+    // Clone the dart
+    const newDart = dart.cloneNode(true);
+    newDart.id = 'static-dart-' + Date.now(); // Ensure unique ID
+    newDart.style.pointerEvents = 'none'; // Make sure it doesn't interfere with clicks
+    document.body.appendChild(newDart);
+  
+    // Position the cloned dart where the mouse was clicked
+    newDart.style.left = dart.style.left;
+    newDart.style.top = dart.style.top;
+    newDart.style.transform = dart.style.transform;
+  
+    // Reset the original dart's position to follow the mouse again
+    dart.style.left = e.clientX + 'px';
+    dart.style.top = (e.clientY - 500) + 'px';
+   });*/

@@ -10,10 +10,29 @@
 
 <body>
     <div class="board" id="board"></div>
-    <div>
-        <p>Jugador 1: <span id="player1Score">501</span></p>
-        <p>Jugador 2: <span id="player2Score">501</span></p>
-        <p>Dardos: [1] <span id="dart1">0</span> - [2] <span id="dart2">0</span> - [3] <span id="dart3">0</span> - Total: <span id="totalDarts">0</span></p>
+    <div class="scoreboard">
+     <div class="player-panel player1">
+      <h2 class="player-name">Jugador 1</h2>
+      <div class="score" id="player1Score">501</div>
+      <div class="darts">
+       <span class="dart-score" id="player1dart1">0</span>
+       <span class="dart-score" id="player1dart2">0</span>
+       <span class="dart-score" id="player1dart3">0</span>
+      </div>
+     </div>
+  
+     <div class="player-panel player2">
+      <h2 class="player-name">Jugador 2</h2>
+      <div class="score" id="player2Score">501</div>
+      <div class="darts">
+       <span class="dart-score" id="player2dart1">0</span>
+       <span class="dart-score" id="player2dart2">0</span>
+       <span class="dart-score" id="player2dart3">0</span>
+      </div>
+     </div>
+     <div class="total-darts">
+      Total Dardos: <span id="totalDarts">0</span>
+     </div>
     </div>
     <div id="diana">
 
@@ -336,7 +355,23 @@
 
     </div>
 
-    <script src="js/script.js"></script>>
+    <svg id="dart" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="dartGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:gold;stop-opacity:1" />
+            <stop offset="30%" style="stop-color:gold;stop-opacity:1" />
+            <stop offset="30%" style="stop-color:gray;stop-opacity:1" />
+            <stop offset="70%" style="stop-color:gray;stop-opacity:1" />
+            <stop offset="70%" style="stop-color:red;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:red;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+        <polygon points="0,25 70,10 70,40" fill="url(#dartGradient)" />
+        <rect x="70" y="20" width="20" height="10" fill="black" />
+        <polygon points="90,25 100,5 100,45" fill="white" />
+    </svg>
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>

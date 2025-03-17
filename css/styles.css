@@ -24,3 +24,82 @@ text:hover {
 #diana {
     width: 45%;
 }
+
+#dart {
+    position: absolute;
+    width: 50px;
+    /* Adjust as needed */
+    height: auto;
+    transform-origin: 0% 50%;
+    pointer-events: none;
+    /* Allows clicks to pass through the dart */
+    transition: transform 0.1s linear;
+    /* Add transition for smooth rotation */
+}
+
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+    /* Stack the player panels vertically */
+    align-items: center;
+    /* Center items horizontally */
+    position: absolute;
+    /* Position the scoreboard to the right */
+    top: 0;
+    right: 25%;
+    width: 25%;
+    /* Adjust as needed */
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    /* Include padding in width */
+}
+
+.player-panel {
+    text-align: center;
+    width: 100%;
+    /* Make player panels take full width */
+    margin-bottom: 10px;
+    /* Add some space between player panels */
+}
+
+.player-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.score {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.darts {
+    margin-top: 10px;
+}
+
+.dart-score {
+    display: inline-block;
+    margin: 0 5px;
+    font-size: 18px;
+}
+
+.total-darts {
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    margin: 10px 0;
+    /* Add some space above and below */
+}
+
+.player1 {
+    background-color: rgba(76, 175, 80, 0.7);
+    /* Green */
+}
+
+.player2 {
+    background-color: rgba(244, 67, 54, 0.7);
+    /* Red */
+}
