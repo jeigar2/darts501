@@ -84,6 +84,7 @@ text:hover {
     display: inline-block;
     margin: 0 5px;
     font-size: 18px;
+    color: gray;
 }
 
 .total-darts {
@@ -102,4 +103,35 @@ text:hover {
 .player2 {
     background-color: rgba(244, 67, 54, 0.7);
     /* Red */
+}
+
+/* filepath: /home/igg/desarrollo/wokspace-vscode/darts501/css/styles.css */
+.history {
+ position: absolute;
+ top: 48%;
+ right: 25%;
+ width: 25%;
+ background-color: #444;
+ color: white;
+ padding: 10px;
+ border-radius: 10px;
+ box-sizing: border-box;
+ overflow: hidden;
+ height: 50%;
+}
+
+.history h2 {
+ text-align: center;
+ margin-bottom: 10px;
+}
+
+.history-list {
+ overflow-y: auto;
+ max-height: calc(100% - 40px);
+ padding: 5px;
+}
+
+.history-item {
+ margin-bottom: 5px;
+ font-size: 14px;
 }

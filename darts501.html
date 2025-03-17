@@ -33,7 +33,17 @@
      <div class="total-darts">
       Total Dardos: <span id="totalDarts">0</span>
      </div>
+     <button id="resetButton">Reiniciar Partida</button>
     </div>
+
+    <div class="history" id="history">
+        <h2>Historial de Jugadas</h2>
+        <button id="clearHistoryButton">Limpiar Historial</button>
+        <div class="history-list" id="historyList">
+         <!-- Play history will be added here -->
+        </div>
+    </div>    
+
     <div id="diana">
 
         <?xml version="1.0" encoding="iso-8859-1"?>
@@ -371,6 +381,7 @@
         <polygon points="90,25 100,5 100,45" fill="white" />
     </svg>
 
+    <script src="js/history.js"></script>
     <script src="js/script.js"></script>
 </body>
 

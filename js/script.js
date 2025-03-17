@@ -124,42 +124,57 @@ function updateScore(player, points, fix, id) {
         case 1:
             dart1.textContent = points;
             if (player === 1) {
-                dart1.style.color = 'rgba(195, 240, 196, 0.7)';
+                dart1.style.color = 'white';
+                dart2.style.color = 'rgba(23, 53, 23, 0.7)';
                 dart3.style.color = 'rgba(23, 53, 23, 0.7)';
             }
             else {
-                dart1.style.color = "rgba(235, 162, 156, 0.7)";
+                dart1.style.color = "white";
+                dart2.style.color = "rgba(49, 30, 30, 0.7)";
                 dart3.style.color = "rgba(49, 30, 30, 0.7)";
             }
-            dart3.textContent = 0;
+            //dart3.textContent = 0;
             totalDarts = parseInt(points);
             break;
         case 2:
             dart2.textContent = points;
             if (player === 1) {
-                dart2.style.color = 'rgba(195, 240, 196, 0.7)';
+                dart2.style.color = 'white';
                 dart1.style.color = 'rgba(23, 53, 23, 0.7)';
             }
             else {
-                dart2.style.color = "rgba(235, 162, 156, 0.7)";
+                dart2.style.color = "white";
                 dart1.style.color = "rgba(49, 30, 30, 0.7)";
             }
             totalDarts += parseInt(points);
             break;
         case 3:
+            dart3.textContent = points;
             if (player === 1) {
-                dart3.style.color = 'rgba(195, 240, 196, 0.7)';
+                dart3.style.color = 'white';
                 dart2.style.color = 'rgba(23, 53, 23, 0.7)';
             }
             else {
-                dart3.style.color = "rgba(235, 162, 156, 0.7)";
+                dart3.style.color = "white";
                 dart2.style.color = "rgba(49, 30, 30, 0.7)";
             }
-            dart3.textContent = points;
             totalDarts += parseInt(points);
             break;
     }
     totalDartsDisplay.textContent = totalDarts;
+
+    let dartType = 'Simple';
+    if (id.includes('doble')) {
+     dartType = 'Doble';
+     multiplier = 2;
+    } else if (id.includes('triple')) {
+     dartType = 'Triple';
+     multiplier = 3;
+    } else if (id.includes('simple')) {
+     multiplier = 1;
+    }
+   
+    updateHistory(player, dartType, points, multiplier);
 }
 
 function throwDart() {
@@ -185,17 +200,26 @@ function playerActive() {
         player2ScoreDisplay.style.color = 'rgba(23, 53, 23, 0.7)';
         player1Name.style.color = 'white';
         player2Name.style.color = 'rgba(49, 30, 30, 0.7)';
+        document.getElementById('player1dart1').textContent = 0;
+        document.getElementById('player1dart2').textContent = 0;
+        document.getElementById('player1dart3').textContent = 0;
+        dart3.style.color = "rgba(49, 30, 30, 0.7)";
     } else {
         player2ScoreDisplay.style.color = 'rgba(235, 162, 156, 0.7)';
         player1ScoreDisplay.style.color = 'rgba(49, 30, 30, 0.7)';
         player2Name.style.color = 'white';
         player1Name.style.color = 'rgba(23, 53, 23, 0.7)';
+        document.getElementById('player2dart1').textContent = 0;
+        document.getElementById('player2dart2').textContent = 0;
+        document.getElementById('player2dart3').textContent = 0;
+        dart3.style.color = "rgba(23, 53, 23, 0.7)";
     }
-    dart1.textContent = dart2.textContent = 0;
+    //dart1.textContent = dart2.textContent = 0;
 }
 
 let player1Score;
 let player2Score;
+let partidas = 0;
 
 function resetGame() {
     player1Score = START_POINTS;
@@ -210,6 +234,13 @@ function resetGame() {
     currentDart = 1;
     totalDarts = 0;    
     currentPlayer = 1;
+    if(partidas > 0){
+        addHistoryItem('Juego reiniciado', false);
+        partidas++;
+    } else {
+        addHistoryItem('Juego iniciado', false);
+        partidas++;
+    }
 }
 
 resetGame();
@@ -219,6 +250,7 @@ function showWinMessage(player) {
     const winMessage = document.createElement('div');
     winMessage.id = 'win-message';
     winMessage.textContent = `¡Jugador ${player} ha ganado!`;
+    addHistoryItem(`¡Jugador ${player} ha ganado!`, false);
     document.body.appendChild(winMessage);
 
     // Style the win message (you can also do this in CSS)
@@ -286,3 +318,7 @@ document.addEventListener('mousemove', (e) => {
     dart.style.left = e.clientX + 'px';
     dart.style.top = (e.clientY - 500) + 'px';
    });*/
+
+   const resetButton = document.getElementById('resetButton');
+   resetButton.addEventListener('click', resetGame);
+   
