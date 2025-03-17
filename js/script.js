@@ -3,6 +3,9 @@ const paths = document.querySelectorAll('path');
 const circles = document.querySelectorAll('circle');
 const textNumbers = document.querySelectorAll('text');
 const elements = paths + circles;
+// si es true, si el jugador llega a valor menor de 0, reinicia el contador y se le descuenta el resto del último tiro
+// si es false, si el jugador llega a valor menor de 0, reinicia el contador
+const SUPERA_Y_RESTA = false;
 
 paths.forEach(path => {
     if (path.getAttribute('value')) {
@@ -11,7 +14,7 @@ paths.forEach(path => {
             const id = path.getAttribute('id');
             const value = path.getAttribute('value');
             //alert(`ID: ${id}\nValue: ${value}`);
-            updateScore(currentPlayer, value, false);
+            updateScore(currentPlayer, value, false, id);
             throwDart();
         });
     }
@@ -24,7 +27,7 @@ circles.forEach(circle => {
             const id = circle.getAttribute('id');
             const value = circle.getAttribute('value');
             //alert(`ID: ${id}\nValue: ${value}`);
-            updateScore(currentPlayer, value, false);
+            updateScore(currentPlayer, value, false, id);
             throwDart();
         });
     }
@@ -37,7 +40,7 @@ textNumbers.forEach(textNumber => {
             const id = textNumber.getAttribute('id');
             const value = textNumber.getAttribute('value');
             //alert(`ID: ${id}\nValue: ${value}`);
-            updateScore(currentPlayer, value, true);
+            updateScore(currentPlayer, value, true, id);
             //throwDart();
         });
     }
@@ -46,6 +49,9 @@ textNumbers.forEach(textNumber => {
 const board = document.getElementById('board');
 const player1ScoreDisplay = document.getElementById('player1Score');
 const player2ScoreDisplay = document.getElementById('player2Score');
+const player1Name = document.getElementById('player1-name');
+const player2Name = document.getElementById('player2-name');
+
 const totalDartsDisplay = document.getElementById('totalDarts');
 let currentPlayer = 1;
 let prefix = 'player1';
@@ -56,7 +62,7 @@ let currentThrows = 0;
 let currentDart = 1;
 let totalDarts = 0;
 
-function updateScore(player, points, fix) {
+function updateScore(player, points, fix, id) {
 
     if (player === 1) {
         prefix = 'player1';
@@ -65,6 +71,19 @@ function updateScore(player, points, fix) {
         } else {
             if (player1Score - points >= 0) {
                 player1Score -= points;
+                if (player1Score === 0 && (id.indexOf('simple') > -1)) {
+                    if(SUPERA_Y_RESTA){
+                        player1Score = START_POINTS - points;
+                    } else {
+                        player1Score = START_POINTS; 
+                    }
+                }
+            } else {
+                if(SUPERA_Y_RESTA){
+                    player1Score = START_POINTS - points;
+                } else {
+                    player1Score = START_POINTS; 
+                }
             }
         }
         player1ScoreDisplay.textContent = player1Score;
@@ -78,6 +97,19 @@ function updateScore(player, points, fix) {
         } else {
             if (player2Score - points >= 0) {
                 player2Score -= points;
+                if (player2Score === 0 && (id.indexOf('simple') > -1)) {
+                    if(SUPERA_Y_RESTA){
+                        player1Score = START_POINTS - points;
+                    } else {
+                        player1Score = START_POINTS; 
+                    }
+                }
+            } else {
+                if(SUPERA_Y_RESTA){
+                    player1Score = START_POINTS - points;
+                } else {
+                    player1Score = START_POINTS; 
+                }
             }
         }
         player2ScoreDisplay.textContent = player2Score;
@@ -151,18 +183,36 @@ function playerActive() {
     if (currentPlayer === 1) {
         player1ScoreDisplay.style.color = 'rgba(195, 240, 196, 0.7)';
         player2ScoreDisplay.style.color = 'rgba(23, 53, 23, 0.7)';
+        player1Name.style.color = 'white';
+        player2Name.style.color = 'rgba(49, 30, 30, 0.7)';
     } else {
         player2ScoreDisplay.style.color = 'rgba(235, 162, 156, 0.7)';
         player1ScoreDisplay.style.color = 'rgba(49, 30, 30, 0.7)';
+        player2Name.style.color = 'white';
+        player1Name.style.color = 'rgba(23, 53, 23, 0.7)';
     }
     dart1.textContent = dart2.textContent = 0;
 }
 
-let player1Score = START_POINTS;
-let player2Score = START_POINTS;
-player1ScoreDisplay.textContent = player1Score;
-player2ScoreDisplay.textContent = player2Score;
-playerActive();
+let player1Score;
+let player2Score;
+
+function resetGame() {
+    player1Score = START_POINTS;
+    player2Score = START_POINTS;
+    player1ScoreDisplay.textContent = player1Score;
+    player2ScoreDisplay.textContent = player2Score;
+    playerActive();
+    totalDarts = 0;
+    totalDartsDisplay.textContent = totalDarts;
+    dart1.textContent = dart2.textContent = dart3.textContent = 0;
+    currentThrows = 0;
+    currentDart = 1;
+    totalDarts = 0;    
+    currentPlayer = 1;
+}
+
+resetGame();
 
 
 function showWinMessage(player) {
@@ -189,6 +239,7 @@ function showWinMessage(player) {
 
     // Optional: Remove the message after a few seconds
     setTimeout(() => {
+        resetGame();
         document.body.removeChild(winMessage);
     }, 3000);
 }
