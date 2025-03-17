@@ -105,7 +105,6 @@ text:hover {
     /* Red */
 }
 
-/* filepath: /home/igg/desarrollo/wokspace-vscode/darts501/css/styles.css */
 .history {
  position: absolute;
  top: 48%;
@@ -135,3 +134,30 @@ text:hover {
  margin-bottom: 5px;
  font-size: 14px;
 }
+
+/* Media query for larger screens */
+@media (max-width: 768px) {
+    #diana {
+     max-width: 45%;
+     float: left;
+     margin-right: 20px;
+    }
+  
+    .scoreboard {
+     position: absolute;
+     top: 0;
+     right: 0;
+     width: 25%;
+     margin: 0;
+    }
+  
+    .history {
+     position: absolute;
+     top: 48%;
+     right: 0;
+     width: 25%;
+     height: auto;
+     margin: 0;
+     display: none;
+    }
+   }
